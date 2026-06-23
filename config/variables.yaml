@@ -1,0 +1,337 @@
+dimensions:
+  macro:
+    label: Macroeconomica
+    description: Tamano, crecimiento, estabilidad y urbanizacion del mercado
+    variables:
+      gdp_nominal:
+        source: world_bank
+        db: 2
+        indicator_code: NY.GDP.MKTP.CD
+        direction: positive
+        frequency: annual
+        description: PIB nominal en USD corrientes
+      gdp_per_capita_ppp:
+        source: world_bank
+        db: 2
+        indicator_code: NY.GDP.PCAP.PP.CD
+        direction: positive
+        frequency: annual
+        description: PIB per capita PPP en dolares internacionales corrientes
+      gdp_growth:
+        source: world_bank
+        db: 2
+        indicator_code: NY.GDP.MKTP.KD.ZG
+        direction: positive
+        frequency: annual
+        description: Crecimiento anual real del PIB
+        include_in_topsis: false
+        include_in_trend: true
+
+      inflation_rate:
+        source: world_bank
+        db: 2
+        indicator_code: FP.CPI.TOTL.ZG
+        direction: negative
+        frequency: annual
+        description: Inflacion anual de precios al consumidor
+      population_total:
+        source: world_bank
+        db: 2
+        indicator_code: SP.POP.TOTL
+        direction: positive
+        frequency: annual
+        description: Poblacion total
+      urban_population_pct:
+        source: world_bank
+        db: 2
+        indicator_code: SP.URB.TOTL.IN.ZS
+        direction: positive
+        frequency: annual
+        description: Poblacion urbana como porcentaje del total
+      unemployment_rate:
+        source: world_bank
+        indicator_code: SL.UEM.TOTL.ZS
+        direction: negative
+        description: Tasa de desempleo (%)
+      current_account_gdp:
+        source: world_bank
+        indicator_code: BN.CAB.XOKA.GD.ZS
+        direction: positive
+        description: Cuenta corriente como % del PIB
+      public_debt_gdp:
+        source: world_bank
+        indicator_code: GC.DOD.TOTL.GD.ZS
+        direction: negative
+        description: Deuda pública como % del PIB
+      trade_openness:
+        source: world_bank
+        indicator_code: NE.TRD.GNFS.ZS
+        direction: positive
+        description: Apertura comercial (% del PIB)
+      fdi_net_inflows_gdp:
+        source: world_bank
+        indicator_code: BX.KLT.DINV.WD.GD.ZS
+        direction: positive
+        description: Inversión extranjera directa (% del PIB)
+      weighted_mean_applied_tariff_all_products:
+        source: world_bank
+        indicator_code: TM.TAX.MRCH.WM.AR.ZS
+        direction: negative
+        description: Tarifa aplicada promedio ponderada para todos los productos
+  financial:
+    label: Industria Financiera
+    description: Profundidad, inclusion, eficiencia y solidez del sistema financiero
+    variables:
+      domestic_credit_private_gdp:
+        source: world_bank
+        db: 2
+        indicator_code: FD.AST.PRVT.GD.ZS
+        direction: positive
+        frequency: annual
+        description: Credito domestico al sector privado por bancos (% del PIB)
+      account_ownership:
+        source: world_bank
+        db: 2
+        indicator_code: FX.OWN.TOTL.ZS
+        direction: positive
+        frequency: triennial
+        description: Adultos con cuenta en institucion financiera o servicio movil (%)
+      interest_rate_spread:
+        source: world_bank
+        db: 2
+        indicator_code: FR.INR.LNDP
+        direction: negative
+        frequency: annual
+        description: Spread tasa activa menos tasa pasiva
+      bank_npl_ratio:
+        source: world_bank
+        db: 2
+        indicator_code: FB.AST.NPER.ZS
+        direction: negative
+        frequency: annual
+        description: Prestamos improductivos sobre cartera bruta (%)
+      stock_market_cap_gdp:
+        source: world_bank
+        db: 2
+        indicator_code: CM.MKT.LCAP.GD.ZS
+        direction: positive
+        frequency: annual
+        description: Capitalizacion bursatil domestica (% del PIB)
+      personal_remittances_gdp:
+        source: world_bank
+        db: 2
+        indicator_code: BX.TRF.PWKR.DT.GD.ZS
+        direction: positive
+        frequency: annual
+        description: Remesas personales recibidas (% del PIB)
+      bank_concentration_5:
+        source: world_bank
+        db: 32
+        indicator_code: GFDD.OI.06
+        direction: negative
+        frequency: annual
+        description: Concentracion de activos en los cinco bancos mas grandes
+      financial_system_deposits_gdp:
+        source: world_bank
+        db: 32
+        indicator_code: GFDD.DI.08
+        direction: positive
+        frequency: annual
+        description: Depositos del sistema financiero sobre PIB
+      bank_capital_rwa:
+        source: world_bank
+        db: 32
+        indicator_code: GFDD.SI.05
+        direction: positive
+        frequency: annual
+        description: Capital regulatorio bancario sobre activos ponderados por riesgo
+
+  institutional:
+    label: Institucional
+    description: Gobernanza, calidad institucional, riesgo pais y libertad economica
+    variables:
+      regulatory_quality:
+        source: world_bank
+        db: 3
+        indicator_code: GOV_WGI_RQ.EST
+        direction: positive
+        frequency: annual
+        description: 'WGI: calidad regulatoria'
+      government_effectiveness:
+        source: world_bank
+        db: 3
+        indicator_code: GOV_WGI_GE.EST
+        direction: positive
+        frequency: annual
+        description: 'WGI: efectividad gubernamental'
+      rule_of_law:
+        source: world_bank
+        db: 3
+        indicator_code: GOV_WGI_RL.EST
+        direction: positive
+        frequency: annual
+        description: 'WGI: estado de derecho'
+      political_stability:
+        source: world_bank
+        db: 3
+        indicator_code: GOV_WGI_PV.EST
+        direction: positive
+        frequency: annual
+        description: 'WGI: estabilidad politica y ausencia de violencia'
+      voice_accountability:
+        source: world_bank
+        db: 3
+        indicator_code: GOV_WGI_VA.EST
+        direction: positive
+        frequency: annual
+        description: 'WGI: voz y rendicion de cuentas'
+      control_of_corruption:
+        source: world_bank
+        db: 3
+        indicator_code: GOV_WGI_CC.EST
+        direction: positive
+        frequency: annual
+        description: 'WGI: control de corrupcion'
+      country_risk_premium:
+        source: damodaran_country_risk_premium
+        indicator_code: COUNTRY_RISK_PREMIUM
+        direction: negative
+        frequency: annual
+        description: Prima de riesgo pais Damodaran / NYU Stern
+      heritage_efi:
+        source: complementary
+        indicator_code: HERITAGE_EFI
+        direction: positive
+        frequency: annual
+        description: Heritage Index of Economic Freedom
+        
+  digital_tech:
+    label: Tecnologica
+    description: Penetracion digital y adopcion de pagos digitales
+    variables:
+      internet_users_pct:
+        source: world_bank
+        db: 2
+        indicator_code: IT.NET.USER.ZS
+        direction: positive
+        frequency: annual
+        description: Usuarios de internet (% de poblacion)
+      mobile_subscriptions:
+        source: world_bank
+        db: 2
+        indicator_code: IT.CEL.SETS.P2
+        direction: positive
+        frequency: annual
+        description: Suscripciones moviles por 100 habitantes
+      digital_payment_adults_pct:
+        source: world_bank
+        db: 28
+        indicator_code: g20.any
+        direction: positive
+        frequency: triennial
+        description: Adultos que hicieron o recibieron pagos digitales en el ultimo ano
+      secure_internet_servers_per_million:
+        source: world_bank
+        db: 2
+        indicator_code: IT.NET.SECR.P6
+        direction: positive
+        frequency: annual
+        description: Servidores seguros de internet por millon de personas
+      commercial_bank_branches_per_100k_adults:
+        source: world_bank
+        db: 2
+        indicator_code: FB.CBK.BRCH.P5
+        direction: positive
+        frequency: annual
+        description: Sucursales de bancos comerciales por cada 100.000 adultos
+      atms_per_100k_adults:
+        source: world_bank
+        db: 2
+        indicator_code: FB.ATM.TOTL.P5
+        direction: positive
+        frequency: annual
+        description: Cajeros automáticos por cada 100.000 adultos
+      ict_goods_exports_pct_total_goods_exports:
+        source: world_bank
+        db: 2
+        indicator_code: TX.VAL.ICTG.ZS.UN
+        direction: positive
+        frequency: annual
+        description: Exportaciones de TIC como porcentaje de las exportaciones totales
+
+  proximity:
+    label: Proximidad
+    description: Afinidad geografica, cultural y relacionamiento con Colombia
+    variables:
+      geographic_distance_km:
+        source: complementary
+        indicator_code: CEPII_DIST_BOG
+        direction: negative
+        frequency: static
+        description: Distancia geografica a Bogota
+        include_in_topsis: false
+        include_in_ipc: true
+      common_language_spanish:
+        source: complementary
+        indicator_code: CEPII_LANG_ES
+        direction: positive
+        frequency: static
+        description: Espanol como idioma oficial o ampliamente compartido
+        include_in_topsis: false
+        include_in_ipc: true
+      hofstede_pdi:
+        source: complementary
+        indicator_code: pdi
+        direction: neutral
+        frequency: static
+        description: 'Hofstede: power distance index'
+        include_in_topsis: false
+        include_in_ipc: true
+      hofstede_idv:
+        source: complementary
+        indicator_code: idv
+        direction: neutral
+        frequency: static
+        description: 'Hofstede: individualism'
+        include_in_topsis: false
+        include_in_ipc: true
+      hofstede_mas:
+        source: complementary
+        indicator_code: mas
+        direction: neutral
+        frequency: static
+        description: 'Hofstede: masculinity'
+        include_in_topsis: false
+        include_in_ipc: true
+      hofstede_uai:
+        source: complementary
+        indicator_code: uai
+        direction: neutral
+        frequency: static
+        description: 'Hofstede: uncertainty avoidance'
+        include_in_topsis: false
+        include_in_ipc: true
+      hofstede_lto:
+        source: complementary
+        indicator_code: lto
+        direction: neutral
+        frequency: static
+        description: 'Hofstede: long-term orientation'
+        include_in_topsis: false
+        include_in_ipc: true
+      hofstede_ivr:
+        source: complementary
+        indicator_code: ivr
+        direction: neutral
+        frequency: static
+        description: 'Hofstede: indulgence'
+        include_in_topsis: false
+        include_in_ipc: true
+      colombian_diaspora_stock:
+        source: complementary
+        indicator_code: SALIDAS_COLOMBIANOS
+        direction: positive
+        frequency: annual
+        description: Salidas de colombianos hacia el pais destino
+        include_in_topsis: false
+        include_in_ipc: true

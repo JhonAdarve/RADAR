@@ -1,0 +1,170 @@
+sources:
+  world_bank:
+    enabled: true
+    name: World Bank Open Data
+    package: wbgapi
+    format: dataframe
+    default_db: 2
+
+    retry:
+      max_attempts: 3
+      backoff_seconds: 2
+
+    countries:
+      regions:
+        - LCN
+        - NAC
+      extra:
+        - ESP
+
+    extraction_methodology: >
+      Para cada variable se utiliza el ultimo dato disponible por pais,
+      dado que las series presentan distintos rezagos. No se fuerza un año
+      común para evitar pérdida de información.
+
+    dimensions:
+
+      # ===== D1 MACROECONOMICA =====
+      d1_macroeconomica:
+        db: 2
+        indicators:
+          NY.GDP.MKTP.CD: PIB nominal en USD corrientes
+          NY.GDP.PCAP.PP.CD: PIB per capita PPP
+          NY.GDP.MKTP.KD.ZG: Crecimiento del PIB
+          FP.CPI.TOTL.ZG: Inflacion anual IPC
+          SP.POP.TOTL: Poblacion total
+          SP.URB.TOTL.IN.ZS: Poblacion urbana (%)
+
+          # NUEVAS
+          SL.UEM.TOTL.ZS: Desempleo total (% fuerza laboral)
+          BN.CAB.XOKA.GD.ZS: Cuenta corriente (% PIB)
+          GC.DOD.TOTL.GD.ZS: Deuda publica (% PIB)
+          NE.TRD.GNFS.ZS: Comercio total (% PIB)
+          BX.KLT.DINV.WD.GD.ZS: IED neta (% PIB)
+          TM.TAX.MRCH.WM.AR.ZS: Tarifa promedio ponderada (%)
+
+      # ===== D2 INDUSTRIA FINANCIERA =====
+      d2_industria_financiera_wdi_findex:
+        db: 2
+        indicators:
+          FD.AST.PRVT.GD.ZS: Credito privado (% PIB)
+          FX.OWN.TOTL.ZS: Adultos con cuenta (%)
+          FR.INR.LNDP: Spread tasas
+          FB.AST.NPER.ZS: Cartera vencida (%)
+          CM.MKT.LCAP.GD.ZS: Capitalizacion bursatil (% PIB)
+          BX.TRF.PWKR.DT.GD.ZS: Remesas (% PIB)
+
+      d2_industria_financiera_gfdd:
+        db: 32
+        indicators:
+          GFDD.OI.06: Concentracion bancaria
+          GFDD.DI.08: Depositos (% PIB)
+          GFDD.SI.05: Capital regulatorio
+
+      # ===== D3 INSTITUCIONAL =====
+      d3_institucional:
+        db: 3
+        indicators:
+          GOV_WGI_RQ.EST: Calidad regulatoria
+          GOV_WGI_GE.EST: Efectividad gobierno
+          GOV_WGI_RL.EST: Estado de derecho
+          GOV_WGI_PV.EST: Estabilidad politica
+          GOV_WGI_VA.EST: Voz y rendicion de cuentas
+          GOV_WGI_CC.EST: Corrupcion
+
+
+      # ===== D4 TECNOLOGICA - WDI =====
+      d4_tecnologica_wdi:
+        db: 2
+        indicators:
+          IT.NET.USER.ZS: Usuarios de internet (%)
+          IT.CEL.SETS.P2: Suscripciones moviles
+          IT.NET.SECR.P6: Servidores seguros
+          FB.CBK.BRCH.P5: Sucursales bancarias
+          FB.ATM.TOTL.P5: Cajeros automaticos
+          TX.VAL.ICTG.ZS.UN: Exportaciones TIC (%)
+
+      # ===== D4 TECNOLOGICA - G20 FINANCIAL INCLUSION / FINDEX =====
+      d4_tecnologica_g20_findex:
+        db: 28
+        indicators:
+          g20.any: Pagos digitales (%)
+
+
+    # ===== MAPEO GLOBAL DE BASES =====
+    indicator_databases:
+
+      # Macro
+      NY.GDP.MKTP.CD: 2
+      NY.GDP.PCAP.PP.CD: 2
+      NY.GDP.MKTP.KD.ZG: 2
+      FP.CPI.TOTL.ZG: 2
+      SP.POP.TOTL: 2
+      SP.URB.TOTL.IN.ZS: 2
+
+      SL.UEM.TOTL.ZS: 2
+      BN.CAB.XOKA.GD.ZS: 2
+      GC.DOD.TOTL.GD.ZS: 2
+      NE.TRD.GNFS.ZS: 2
+      BX.KLT.DINV.WD.GD.ZS: 2
+      TM.TAX.MRCH.WM.AR.ZS: 2
+
+      # Financiero
+      FD.AST.PRVT.GD.ZS: 2
+      FX.OWN.TOTL.ZS: 2
+      FR.INR.LNDP: 2
+      FB.AST.NPER.ZS: 2
+      CM.MKT.LCAP.GD.ZS: 2
+      BX.TRF.PWKR.DT.GD.ZS: 2
+      GFDD.OI.06: 32
+      GFDD.DI.08: 32
+      GFDD.SI.05: 32
+
+      # Institucional
+      GOV_WGI_RQ.EST: 3
+      GOV_WGI_GE.EST: 3
+      GOV_WGI_RL.EST: 3
+      GOV_WGI_PV.EST: 3
+      GOV_WGI_VA.EST: 3
+      GOV_WGI_CC.EST: 3
+
+      # Tecnologico
+      IT.NET.USER.ZS: 2
+      IT.CEL.SETS.P2: 2
+      g20.any: 28
+      IT.NET.SECR.P6: 2
+      FB.CBK.BRCH.P5: 2
+      FB.ATM.TOTL.P5: 2
+      TX.VAL.ICTG.ZS.UN: 2
+
+
+  # ===== DAMODARAN =====
+  damodaran_country_risk_premium:
+    enabled: true
+    url: https://pages.stern.nyu.edu/~adamodar/pc/datasets/ctryprem.xlsx
+    format: xlsx
+    timeout_seconds: 30
+    verify_ssl: false
+    sheet: ERPs by country
+    skiprows: 7
+    country_column: Country
+    value_column: Country Risk Premium
+    variable_name: country_risk_premium
+
+
+  # ===== COMPLEMENTARIOS =====
+  complementary:
+    enabled: true
+
+    static_files:
+      cepii_geodist: data/static/cepii_geodist.csv
+      cepii_language_spanish: data/static/cepii_language_spanish.csv
+      hofstede_country_scores: data/static/hofstede_country_scores.csv
+      heritage_efi_source: data/static/heritage-index-of-economic-freedom-2026-05-02_2040.csv
+    online_sources:
+      colombian_diaspora_stock:
+        enabled: true
+        url: https://www.datos.gov.co/resource/efw5-jiej.csv?$query=SELECT%20a_o%2C%20mes%2C%20pa_s_destino%2C%20codigo_m49%2C%20femenino%2C%20masculino%2C%20indefinido%2C%20total%2C%20ubicacion_pcm%20SEARCH%20%222025%22
+        variable_name: colombian_diaspora_stock
+
+    structural_year_reference: 2020

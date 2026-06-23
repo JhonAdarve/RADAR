@@ -1,0 +1,206 @@
+project:
+
+  name: "RADAR Cibest"
+  version: "1.0.0"
+  description: >
+    Sistema analitico multicriterio hibrido para evaluar el atractivo de
+    mercados de America y Espana como destinos de internacionalizacion de
+    Grupo Cibest, generando senales diferenciadas para las cinco lineas
+    de negocio.
+  methodology: "BWM + TOPSIS + Gravitacional"
+  dimensions:
+    - macro
+    - financial
+    - institutional
+    - digital_tech
+    - proximity
+
+countries:
+  - { iso3: "ARG", name: "Argentina",            region: "south_america" }
+  - { iso3: "BOL", name: "Bolivia",              region: "south_america" }
+  - { iso3: "BRA", name: "Brasil",               region: "south_america" }
+  - { iso3: "CHL", name: "Chile",                region: "south_america" }
+  - { iso3: "COL", name: "Colombia",             region: "south_america" }
+  - { iso3: "ECU", name: "Ecuador",              region: "south_america" }
+  - { iso3: "GUY", name: "Guyana",               region: "south_america" }
+  - { iso3: "PRY", name: "Paraguay",             region: "south_america" }
+  - { iso3: "PER", name: "Peru",                 region: "south_america" }
+  - { iso3: "SUR", name: "Surinam",              region: "south_america" }
+  - { iso3: "URY", name: "Uruguay",              region: "south_america" }
+  - { iso3: "VEN", name: "Venezuela",            region: "south_america" }
+  - { iso3: "BLZ", name: "Belice",               region: "central_america" }
+  - { iso3: "CRI", name: "Costa Rica",           region: "central_america" }
+  - { iso3: "SLV", name: "El Salvador",          region: "central_america" }
+  - { iso3: "GTM", name: "Guatemala",            region: "central_america" }
+  - { iso3: "HND", name: "Honduras",             region: "central_america" }
+  - { iso3: "NIC", name: "Nicaragua",            region: "central_america" }
+  - { iso3: "PAN", name: "Panama",               region: "central_america" }
+  - { iso3: "CAN", name: "Canada",               region: "north_america" }
+  - { iso3: "MEX", name: "Mexico",               region: "north_america" }
+  - { iso3: "USA", name: "Estados Unidos",       region: "north_america" }
+  - { iso3: "CUB", name: "Cuba",                 region: "caribbean" }
+  - { iso3: "DOM", name: "Republica Dominicana", region: "caribbean" }
+  - { iso3: "HTI", name: "Haiti",                region: "caribbean" }
+  - { iso3: "JAM", name: "Jamaica",              region: "caribbean" }
+  - { iso3: "TTO", name: "Trinidad y Tobago",    region: "caribbean" }
+  - { iso3: "BHS", name: "Bahamas",              region: "caribbean" }
+  - { iso3: "BRB", name: "Barbados",             region: "caribbean" }
+  - { iso3: "ESP", name: "Espana",               region: "europe_strategic" }
+
+origin_country: "COL"
+
+data:
+  output_format: parquet
+  raw_path: data/raw/
+  processed_path: data/processed/
+  scores_path: data/scores/
+  cache_path: data/cache/
+  static_path: data/static/
+  logs_path: data/logs/
+  cache_expiry_days: 30
+  structural_year_reference: 2020
+
+
+data_extraction:
+  keep_history: false #cuando se tenga buena cobertura histórica multivariabl volver a true
+  historical_start_year: 2022
+  historical_end_year: 2024
+
+
+data_quality:
+  # uso el último dato disponible solo si sigue siendo vigente bajo la regla de 5 años; 
+  # de lo contrario lo trato como faltante e imputo o excluyo el país si pierde cobertura suficiente.
+  # Excluye países con más del 30% de variables faltantes efectivas.
+  # Las variables faltantes efectivas incluyen:
+  #   1. variables sin dato;
+  #   2. variables cuyo último dato disponible supera max_data_age_years;
+  #   3. variables marcadas como stale por reglas de frescura.
+  max_missing_pct: 0.30
+
+  # Máxima antigüedad aceptada para variables no estáticas.
+  # Con reference_year=2026 y max_data_age_years=5,
+  # se aceptan datos desde 2021 en adelante.
+  # Datos 2020 o anteriores se tratan como faltantes efectivos.
+  max_data_age_years: 6
+
+  # Año de referencia para calcular antigüedad de datos.
+  # Se recomienda fijarlo explícitamente para evitar que fuentes con datos 2025/2026
+  # distorsionen la evaluación de vigencia frente a variables World Bank rezagadas.
+  freshness_reference_year: 2026
+
+  # Frecuencias que no deben castigarse por antigüedad.
+  # Aplica para variables estructurales o estáticas.
+  freshness_exempt_frequencies:
+    - static
+
+  # Variables exentas de control de antigüedad.
+  # No se castigan porque son estructurales, geográficas, culturales
+  # o auxiliares para feature engineering / IPC.
+  freshness_exempt_variables:
+    - geographic_distance_km
+    - common_language_spanish
+    - hofstede_pdi
+    - hofstede_idv
+    - hofstede_mas
+    - hofstede_uai
+    - hofstede_lto
+    - hofstede_ivr
+    - cultural_distance_hofstede
+
+  # Barrera mínima para evitar persistir masters parciales si falla una fuente crítica.
+  # Útil para impedir que un master sin World Bank contamine notebooks posteriores.
+  min_expected_variables: 35
+
+  country_exclusion_stage: pre_imputation_after_freshness
+
+scoring:
+  exclude_origin_country: true
+
+  # Umbral histórico usado por cleaning para exclusión por cobertura.
+  # Se conserva por compatibilidad, pero la regla principal queda gobernada
+  # por data_quality.max_missing_pct.
+  missing_data_threshold: 0.3
+
+  imputation_method: regional_median
+  normalization_method: min_max
+  neutral_direction_policy: exclude_from_topsis_direction
+
+  composite_weights:
+    alpha: 0.6   # TOPSIS estructural, excluyendo proximidad y gdp_growth.
+    beta:  0.3   # Índice de Proximidad con Colombia / IPC.
+    gamma: 0.1   # Trend macro reciente basado en gdp_growth promedio últimos 3 años.
+
+  trend:
+    enabled: true
+
+    # Método vigente:
+    # Usa crecimiento real del PIB como proxy de momentum macroeconómico reciente.
+    # No recalcula TOPSIS histórico porque la cobertura histórica multivariable
+    # no es suficiente para soportar global_score_yoy de forma robusta.
+    method: gdp_growth
+
+    # Variable usada exclusivamente para Trend.
+    # Recomendación metodológica:
+    #   - gdp_growth debe mantenerse en wide_raw/master.
+    #   - gdp_growth debe excluirse de decision_matrix/TOPSIS para evitar doble conteo.
+    variable: gdp_growth
+
+    # Año final de la ventana de tendencia.
+    # Se mantiene 2024 porque la serie World Bank estructural es más consistente
+    # hasta ese año y evita que fuentes 2025/2026 contaminen la ventana de trend.
+    end_year: 2024
+
+    # Promedio de los últimos 3 años disponibles hasta end_year.
+    n_years: 3
+
+    # Valor neutral si no hay datos suficientes para calcular tendencia.
+    neutral_value: 0.5
+
+    # Winsorización para evitar que rebotes extremos de PIB dominen el componente Trend.
+    winsor_lower_quantile: 0.05
+    winsor_upper_quantile: 0.95
+
+    # Ajuste opcional por riesgo.
+    # Mantener true si ya implementaste ajuste de trend por country_risk_premium.
+    # Si no lo implementaste en compute_trend_factor(), déjalo en false.
+    risk_adjusted: false
+    risk_variable: country_risk_premium
+    risk_floor: 0.5
+
+  profile_thresholds:
+    strength_threshold: 0.10
+    weakness_threshold: 0.10
+
+  bwm:
+    max_consistency_ratio: 0.1
+
+  topsis:
+    distance_metric: euclidean
+    
+
+monte_carlo:
+  enabled: true
+  n_simulations: 1000
+  random_seed: 42
+
+  topsis:
+    dimension_concentration: 150
+    variable_concentration: 100
+
+  radar:
+    composite_concentration: 150
+    perturb_composite_weights: true
+
+  outputs:
+    top_n:
+      - 3
+      - 5
+      - 10
+      - 15
+
+logging:
+  level: INFO
+  file_path: data/logs/radar_cibest.log
+  rotation: 10 MB
+  retention: 30 days
+  format: '{time:YYYY-MM-DD HH:mm:ss} | {level:<8} | {name}:{function}:{line} | {message}'

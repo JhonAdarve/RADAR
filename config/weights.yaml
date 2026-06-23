@@ -1,0 +1,83 @@
+metadata:
+  source: radar_cibest
+  date: '2026-05-11'
+  consistency_ratio: null
+  panel_size: 0
+  aggregation_method: geometric_mean
+  notes: Pesos operativos alineados.
+
+dimension_weights:
+  macro: 0.3
+  financial: 0.3
+  institutional: 0.3
+  digital_tech: 0.1
+  #proximity: 0.15
+
+variable_weights:
+  macro:
+    # Tamaño de mercado
+    gdp_nominal: 0.17
+    gdp_per_capita_ppp: 0.17
+    population_total: 0.10
+    urban_population_pct: 0.08
+
+    # Dinámica económica
+    #gdp_growth: 0.10
+    inflation_rate: 0.08
+
+    # Estabilidad macro
+    unemployment_rate: 0.08
+    public_debt_gdp: 0.08
+    current_account_gdp: 0.07
+
+    # Integración internacional
+    trade_openness: 0.07
+    fdi_net_inflows_gdp: 0.06
+    weighted_mean_applied_tariff_all_products: 0.04
+
+  financial:
+    domestic_credit_private_gdp: 0.13
+    account_ownership: 0.13
+    interest_rate_spread: 0.1
+    bank_npl_ratio: 0.1
+    stock_market_cap_gdp: 0.1
+    personal_remittances_gdp: 0.1
+    bank_concentration_5: 0.1
+    financial_system_deposits_gdp: 0.12
+    bank_capital_rwa: 0.12
+
+  institutional:
+    regulatory_quality: 0.13
+    government_effectiveness: 0.13
+    rule_of_law: 0.13
+    political_stability: 0.12
+    voice_accountability: 0.09
+    control_of_corruption: 0.13
+    country_risk_premium: 0.17
+    heritage_efi: 0.1
+
+  digital_tech:
+    internet_users_pct: 0.20
+    mobile_subscriptions: 0.19
+    digital_payment_adults_pct: 0.21
+    secure_internet_servers_per_million: 0.15
+    commercial_bank_branches_per_100k_adults: 0.10
+    atms_per_100k_adults: 0.05
+    ict_goods_exports_pct_total_goods_exports: 0.10
+
+ipc_component_weights:
+  geographic_distance_km: 0.2
+  common_language_spanish: 0.2
+  hofstede_pdi: 0.08
+  hofstede_idv: 0.08
+  hofstede_mas: 0.08
+  hofstede_uai: 0.08
+  hofstede_lto: 0.08
+  hofstede_ivr: 0.08
+  colombian_diaspora_stock: 0.12
+
+consistency:
+  bwm_global_xi: null
+  bwm_global_consistency_index: null
+  bwm_global_consistency_ratio: null
+  panel_individual_ratios: []

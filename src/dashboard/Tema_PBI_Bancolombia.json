@@ -1,0 +1,56 @@
+﻿{
+	"name": "Tema_Bancolombia_Fondo_Blanco-CIB_font",
+	"dataColors": [
+	"#FDDA24",
+	"#00CCEA",
+	"#9063CD",
+	"#F5B6CD",
+	"#0BA783",
+	"#FF7F41",	
+	"#2C2A29",	
+	"#FEFFFE"
+	],
+	"visualStyles": {
+		"*": {
+		  "*": {
+			"*": [
+			  {
+				"fontSize": 12,
+				"fontFace": "CIBFont Sans"
+			  }
+			]
+		  }
+		}
+	},
+	"textClasses": {
+		"label": {
+			"color": "#000000",
+			"fontFace": "CIBFont Sans"
+		},
+		"callout": {
+			"color": "#000000",
+			"fontFace": "CIBFont Sans",
+			"fontSize": 12
+		},
+		"title": {
+			"color": "#000000",
+			"fontSize": 15,
+			"fontFace": "CIBFont Sans"
+		},
+		"header": {
+			"color": "#000000",
+			"fontSize": 15,
+			"fontFace": "CIBFont Sans"
+		}
+	},
+	"bad": "#ED182D",
+	"neutral": "#ECC406",
+	"good": "#1BAD42",
+	"minimum": "#6CB2F4",
+	"center": "#ECC406",
+	"maximum": "#0569C6",
+	"foregroundNeutralSecondary": "#565554",
+	"backgroundLight": "#807F7F",
+	"foregroundNeutralTertiary": "#BCB7B1",
+	"backgroundNeutral": "#000000"
+}	

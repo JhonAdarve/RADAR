@@ -1,0 +1,57 @@
+# ============================================================================
+# RADAR Cibest - .gitignore
+# ============================================================================
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+.Python
+.eggs/
+build/
+dist/
+*.so
+
+# Entornos virtuales
+.venv/
+venv/
+env/
+ENV/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Datos generados (no versionar resultados)
+data/cache/
+data/raw/*.parquet
+data/processed/*.parquet
+data/scores/*.parquet
+data/scores/index.yaml
+data/logs/
+
+# Archivos estaticos sensibles (politicas internas)
+# Si data/static/ contiene info confidencial, descomentar:
+# data/static/*.csv
+# !data/static/cepii_*.csv
+# !data/static/hofstede_*.csv
+# !data/static/README.md
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Tests
+.coverage
+htmlcov/
+.pytest_cache/
+coverage.xml
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Logs
+*.log

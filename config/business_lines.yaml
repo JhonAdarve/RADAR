@@ -1,0 +1,407 @@
+business_lines:
+
+  IB:
+    label: Intermediacion Bancaria
+    description: Captacion, colocacion de credito y servicios bancarios tradicionales.
+    weight_profile:
+      macro: 0.20
+      financial: 0.45
+      institutional: 0.30
+      digital_tech: 0.05
+
+    variable_weight_overrides:
+      macro:
+        gdp_nominal: 0.10
+        gdp_per_capita_ppp: 0.16
+        # gdp_growth: 0.08
+        inflation_rate: 0.14
+        population_total: 0.07
+        urban_population_pct: 0.04
+        unemployment_rate: 0.08
+        current_account_gdp: 0.06
+        public_debt_gdp: 0.14
+        trade_openness: 0.08
+        fdi_net_inflows_gdp: 0.06
+        weighted_mean_applied_tariff_all_products: 0.07
+
+      financial:
+        domestic_credit_private_gdp: 0.22
+        financial_system_deposits_gdp: 0.20
+        account_ownership: 0.12
+        bank_npl_ratio: 0.14
+        bank_capital_rwa: 0.12
+        bank_concentration_5: 0.08
+        interest_rate_spread: 0.08
+        stock_market_cap_gdp: 0.03
+        personal_remittances_gdp: 0.01
+
+      institutional:
+        rule_of_law: 0.23
+        regulatory_quality: 0.21
+        government_effectiveness: 0.17
+        control_of_corruption: 0.15
+        political_stability: 0.11
+        country_risk_premium: 0.08
+        heritage_efi: 0.03
+        voice_accountability: 0.02
+
+      digital_tech:
+        secure_internet_servers_per_million: 0.24
+        internet_users_pct: 0.22
+        mobile_subscriptions: 0.18
+        digital_payment_adults_pct: 0.16
+        commercial_bank_branches_per_100k_adults: 0.08
+        atms_per_100k_adults: 0.07
+        ict_goods_exports_pct_total_goods_exports: 0.05
+
+    key_variables:
+      positive_signal:
+        - domestic_credit_private_gdp
+        - financial_system_deposits_gdp
+        - account_ownership
+        - bank_capital_rwa
+        - regulatory_quality
+        - rule_of_law
+        - gdp_nominal
+        - gdp_per_capita_ppp
+
+      negative_signal:
+        - bank_npl_ratio
+        - bank_concentration_5
+        - interest_rate_spread
+        - country_risk_premium
+        - inflation_rate
+        - public_debt_gdp
+        - weighted_mean_applied_tariff_all_products
+
+    signal_logic: La atractividad para Intermediacion Bancaria depende principalmente de la profundidad y salud del sistema bancario domestico, la disponibilidad de fondeo, la calidad de cartera, la solvencia bancaria y un entorno macro-institucional estable. La tecnologia funciona como habilitador operativo, pero no como driver principal de entrada.
+
+
+  PF:
+    label: Pagos y Flujos
+    description: Pagos, recaudos, transferencias, giros y remesas.
+    weight_profile:
+      macro: 0.16
+      financial: 0.25
+      institutional: 0.12
+      digital_tech: 0.47
+
+    variable_weight_overrides:
+      macro:
+        gdp_nominal: 0.04
+        gdp_per_capita_ppp: 0.07
+        inflation_rate: 0.14
+        population_total: 0.03
+        urban_population_pct: 0.03
+        unemployment_rate: 0.05
+        current_account_gdp: 0.08
+        public_debt_gdp: 0.06
+        trade_openness: 0.32
+        fdi_net_inflows_gdp: 0.08
+        weighted_mean_applied_tariff_all_products: 0.10
+
+
+      financial:
+        personal_remittances_gdp: 0.38
+        account_ownership: 0.22
+        domestic_credit_private_gdp: 0.07
+        financial_system_deposits_gdp: 0.07
+        bank_npl_ratio: 0.07
+        interest_rate_spread: 0.06
+        bank_capital_rwa: 0.07
+        bank_concentration_5: 0.03
+        stock_market_cap_gdp: 0.03
+
+        # Nota: ATMs y sucursales se tratan como infraestructura/canal,
+        # por eso se ponderan en digital_tech, no en financial.
+
+      institutional:
+        regulatory_quality: 0.23
+        rule_of_law: 0.18
+        government_effectiveness: 0.15
+        control_of_corruption: 0.13
+        political_stability: 0.12
+        country_risk_premium: 0.10
+        heritage_efi: 0.05
+        voice_accountability: 0.04
+
+      digital_tech:
+        digital_payment_adults_pct: 0.40
+        mobile_subscriptions: 0.18
+        internet_users_pct: 0.11
+        atms_per_100k_adults: 0.13
+        commercial_bank_branches_per_100k_adults: 0.09
+        secure_internet_servers_per_million: 0.05
+        ict_goods_exports_pct_total_goods_exports: 0.04
+
+    key_variables:
+      positive_signal:
+        - digital_payment_adults_pct
+        - personal_remittances_gdp
+        - trade_openness
+        - account_ownership
+        - mobile_subscriptions
+        - atms_per_100k_adults
+        - commercial_bank_branches_per_100k_adults
+        - current_account_gdp
+
+      negative_signal:
+        - country_risk_premium
+        - inflation_rate
+        - interest_rate_spread
+        - weighted_mean_applied_tariff_all_products
+        - bank_npl_ratio
+        - public_debt_gdp
+
+    signal_logic: La atractividad para Pagos y Flujos se explica por la intensidad transaccional del mercado, la adopcion efectiva de pagos digitales, la conectividad movil, el peso de remesas, la apertura de flujos transfronterizos y la disponibilidad de canales transaccionales. La tesis privilegia mercados donde ya existe comportamiento de pago, movimiento de dinero y capilaridad operativa, mas que escala retail pura o sofisticacion bancaria estructural.
+
+
+  AD:
+    label: Activos Digitales
+    description: Servicios financieros digitales avanzados y activos digitales.
+    weight_profile:
+      macro: 0.07
+      financial: 0.12
+      institutional: 0.48
+      digital_tech: 0.33
+
+
+    variable_weight_overrides:
+      macro:
+        gdp_nominal: 0.04
+        gdp_per_capita_ppp: 0.23
+        # gdp_growth: 0.08
+        inflation_rate: 0.20
+        population_total: 0.02
+        urban_population_pct: 0.02
+        unemployment_rate: 0.04
+        current_account_gdp: 0.05
+        public_debt_gdp: 0.18
+        trade_openness: 0.08
+        fdi_net_inflows_gdp: 0.10
+        weighted_mean_applied_tariff_all_products: 0.04
+
+      financial:
+        stock_market_cap_gdp: 0.30
+        bank_capital_rwa: 0.15
+        domestic_credit_private_gdp: 0.11
+        financial_system_deposits_gdp: 0.09
+        bank_npl_ratio: 0.12
+        account_ownership: 0.05
+        interest_rate_spread: 0.07
+        bank_concentration_5: 0.05
+        personal_remittances_gdp: 0.06
+
+      institutional:
+        regulatory_quality: 0.34
+        rule_of_law: 0.26
+        control_of_corruption: 0.18
+        government_effectiveness: 0.10
+        political_stability: 0.07
+        country_risk_premium: 0.03
+        heritage_efi: 0.01
+        voice_accountability: 0.01
+
+      digital_tech:
+        secure_internet_servers_per_million: 0.40
+        ict_goods_exports_pct_total_goods_exports: 0.25
+        internet_users_pct: 0.14
+        digital_payment_adults_pct: 0.08
+        mobile_subscriptions: 0.07
+        atms_per_100k_adults: 0.03
+        commercial_bank_branches_per_100k_adults: 0.03
+
+
+
+    key_variables:
+      positive_signal:
+        - regulatory_quality
+        - rule_of_law
+        - control_of_corruption
+        - secure_internet_servers_per_million
+        - ict_goods_exports_pct_total_goods_exports
+        - internet_users_pct
+        - stock_market_cap_gdp
+        - bank_capital_rwa
+
+      negative_signal:
+        - country_risk_premium
+        - political_stability
+        - inflation_rate
+        - public_debt_gdp
+        - bank_npl_ratio
+        - interest_rate_spread
+
+    signal_logic: La atractividad para Activos Digitales depende principalmente de claridad regulatoria, seguridad juridica, control de corrupcion, infraestructura digital segura, sofisticacion financiera y capacidad tecnologica avanzada. A diferencia de Banca Digital retail, esta tesis no se centra en escala poblacional ni adopcion masiva, sino en la posibilidad de operar productos digitales avanzados bajo un entorno institucional confiable.
+
+
+  BD:
+    label: Bancos Digitales
+    description: Operacion bancaria 100% digital para retail y segmentos subatendidos.
+    weight_profile:
+      macro: 0.30
+      financial: 0.25
+      institutional: 0.15
+      digital_tech: 0.30
+
+    variable_weight_overrides:
+      macro:
+        population_total: 0.28
+        urban_population_pct: 0.16
+        gdp_nominal: 0.12
+        gdp_per_capita_ppp: 0.14
+        # gdp_growth: 0.09
+        inflation_rate: 0.12
+        unemployment_rate: 0.07
+        public_debt_gdp: 0.07
+        current_account_gdp: 0.02
+        trade_openness: 0.01
+        fdi_net_inflows_gdp: 0.01
+        weighted_mean_applied_tariff_all_products: 0.00
+
+      financial:
+        account_ownership: 0.36
+        domestic_credit_private_gdp: 0.14
+        financial_system_deposits_gdp: 0.12
+        bank_concentration_5: 0.12
+        bank_npl_ratio: 0.11
+        interest_rate_spread: 0.08
+        bank_capital_rwa: 0.05
+        personal_remittances_gdp: 0.01
+        stock_market_cap_gdp: 0.01
+        # Nota metodologica:
+        # bank_concentration_5 se conserva como variable financiera relevante,
+        # pero debe interpretarse como restriccion competitiva cuando su direccion
+        # global sea negativa. Si se desea leerlo como oportunidad de disrupcion,
+        # conviene crear una variable derivada separada.
+
+      institutional:
+        regulatory_quality: 0.22
+        rule_of_law: 0.18
+        government_effectiveness: 0.15
+        control_of_corruption: 0.13
+        political_stability: 0.12
+        country_risk_premium: 0.10
+        heritage_efi: 0.06
+        voice_accountability: 0.04
+
+      digital_tech:
+        internet_users_pct: 0.34
+        mobile_subscriptions: 0.22
+        digital_payment_adults_pct: 0.18
+        secure_internet_servers_per_million: 0.16
+        ict_goods_exports_pct_total_goods_exports: 0.05
+        commercial_bank_branches_per_100k_adults: 0.03
+        atms_per_100k_adults: 0.02
+
+    key_variables:
+      positive_signal:
+        - internet_users_pct
+        - mobile_subscriptions
+        - digital_payment_adults_pct
+        - account_ownership
+        - population_total
+        - urban_population_pct
+        - gdp_per_capita_ppp
+        - secure_internet_servers_per_million
+
+      negative_signal:
+        - bank_concentration_5
+        - bank_npl_ratio
+        - interest_rate_spread
+        - country_risk_premium
+        - inflation_rate
+        - public_debt_gdp
+
+    signal_logic: La atractividad para Bancos Digitales se concentra en mercados con escala retail, poblacion urbana, conectividad amplia, adopcion digital, bancarizacion suficiente y condiciones macro razonables para escalar una propuesta bancaria 100% digital. A diferencia de Pagos y Flujos, esta tesis no depende principalmente de remesas, comercio transfronterizo o canales fisicos de recaudo, sino de la posibilidad de escalar una base masiva de usuarios digitales en segmentos bancarizados, subatendidos o atendidos por estructuras bancarias tradicionales.
+
+
+  CIB:
+    label: "Corporate & Investment Banking"
+    description: Banca corporativa, mercados de capitales y asset management.
+    weight_profile:
+      macro: 0.34
+      financial: 0.40
+      institutional: 0.24
+      digital_tech: 0.02
+
+    variable_weight_overrides:
+      macro:
+        gdp_nominal: 0.24
+        trade_openness: 0.16
+        gdp_per_capita_ppp: 0.12
+        fdi_net_inflows_gdp: 0.12
+        public_debt_gdp: 0.10
+        inflation_rate: 0.09
+        current_account_gdp: 0.08
+        population_total: 0.04
+        unemployment_rate: 0.02
+        weighted_mean_applied_tariff_all_products: 0.02
+        urban_population_pct: 0.01
+        # gdp_growth: 0.05
+
+      financial:
+        stock_market_cap_gdp: 0.36
+        domestic_credit_private_gdp: 0.16
+        financial_system_deposits_gdp: 0.14
+        bank_capital_rwa: 0.12
+        bank_npl_ratio: 0.08
+        interest_rate_spread: 0.05
+        personal_remittances_gdp: 0.04
+        bank_concentration_5: 0.03
+        account_ownership: 0.02
+
+      institutional:
+        rule_of_law: 0.26
+        regulatory_quality: 0.23
+        government_effectiveness: 0.18
+        control_of_corruption: 0.15
+        political_stability: 0.09
+        country_risk_premium: 0.05
+        heritage_efi: 0.03
+        voice_accountability: 0.01
+
+      digital_tech:
+        secure_internet_servers_per_million: 0.30
+        ict_goods_exports_pct_total_goods_exports: 0.28
+        internet_users_pct: 0.17
+        digital_payment_adults_pct: 0.10
+        mobile_subscriptions: 0.08
+        commercial_bank_branches_per_100k_adults: 0.04
+        atms_per_100k_adults: 0.03
+
+    key_variables:
+      positive_signal:
+        - gdp_nominal
+        - stock_market_cap_gdp
+        - domestic_credit_private_gdp
+        - trade_openness
+        - fdi_net_inflows_gdp
+        - rule_of_law
+        - regulatory_quality
+        - bank_capital_rwa
+
+      negative_signal:
+        - inflation_rate
+        - country_risk_premium
+        - bank_npl_ratio
+        - public_debt_gdp
+        - weighted_mean_applied_tariff_all_products
+        - interest_rate_spread
+
+    signal_logic: La atractividad para Corporate & Investment Banking se explica por escala economica, profundidad de mercado de capitales, base corporativa potencial, apertura comercial, atraccion de inversion extranjera, solvencia financiera e institucionalidad fuerte. La dimension digital tiene peso marginal porque opera como infraestructura habilitadora, no como driver central de la tesis corporativa.
+
+
+# ==================================================================
+# THRESHOLDS
+# ==================================================================
+signal_thresholds:
+  ALTA_OPORTUNIDAD: 0.70
+  OPORTUNIDAD_MODERADA: 0.45
+  BAJA_OPORTUNIDAD: 0.25
+
+  risk_override:
+    political_stability_percentile: 0.15
+    control_of_corruption_percentile: 0.15
+    country_risk_premium_percentile: 0.85
+    bank_npl_ratio_percentile: 0.85
