@@ -64,11 +64,11 @@ business_lines:
         - rule_of_law
         - gdp_nominal
         - gdp_per_capita_ppp
+        - interest_rate_spread
 
       negative_signal:
         - bank_npl_ratio
         - bank_concentration_5
-        - interest_rate_spread
         - country_risk_premium
         - inflation_rate
         - public_debt_gdp
@@ -144,11 +144,11 @@ business_lines:
         - atms_per_100k_adults
         - commercial_bank_branches_per_100k_adults
         - current_account_gdp
+        - interest_rate_spread
 
       negative_signal:
         - country_risk_premium
         - inflation_rate
-        - interest_rate_spread
         - weighted_mean_applied_tariff_all_products
         - bank_npl_ratio
         - public_debt_gdp
@@ -223,6 +223,7 @@ business_lines:
         - internet_users_pct
         - stock_market_cap_gdp
         - bank_capital_rwa
+        - interest_rate_spread
 
       negative_signal:
         - country_risk_premium
@@ -230,7 +231,7 @@ business_lines:
         - inflation_rate
         - public_debt_gdp
         - bank_npl_ratio
-        - interest_rate_spread
+        
 
     signal_logic: La atractividad para Activos Digitales depende principalmente de claridad regulatoria, seguridad juridica, control de corrupcion, infraestructura digital segura, sofisticacion financiera y capacidad tecnologica avanzada. A diferencia de Banca Digital retail, esta tesis no se centra en escala poblacional ni adopcion masiva, sino en la posibilidad de operar productos digitales avanzados bajo un entorno institucional confiable.
 
@@ -304,11 +305,11 @@ business_lines:
         - urban_population_pct
         - gdp_per_capita_ppp
         - secure_internet_servers_per_million
+        - interest_rate_spread
 
       negative_signal:
         - bank_concentration_5
         - bank_npl_ratio
-        - interest_rate_spread
         - country_risk_premium
         - inflation_rate
         - public_debt_gdp
@@ -380,6 +381,7 @@ business_lines:
         - rule_of_law
         - regulatory_quality
         - bank_capital_rwa
+        - interest_rate_spread
 
       negative_signal:
         - inflation_rate
@@ -387,7 +389,7 @@ business_lines:
         - bank_npl_ratio
         - public_debt_gdp
         - weighted_mean_applied_tariff_all_products
-        - interest_rate_spread
+        
 
     signal_logic: La atractividad para Corporate & Investment Banking se explica por escala economica, profundidad de mercado de capitales, base corporativa potencial, apertura comercial, atraccion de inversion extranjera, solvencia financiera e institucionalidad fuerte. La dimension digital tiene peso marginal porque opera como infraestructura habilitadora, no como driver central de la tesis corporativa.
 

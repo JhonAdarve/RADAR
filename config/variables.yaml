@@ -100,7 +100,7 @@ dimensions:
         source: world_bank
         db: 2
         indicator_code: FR.INR.LNDP
-        direction: negative
+        direction: positive
         frequency: annual
         description: Spread tasa activa menos tasa pasiva
       bank_npl_ratio:
