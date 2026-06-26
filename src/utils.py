@@ -130,23 +130,65 @@ def load_all_configs(config_dir: Path | str | None = None) -> Dict[str, Dict[str
 # Logger
 # ============================================================================
 def setup_logger(logging_config: Dict[str, Any] | None = None) -> None:
-    """Configura loguru segun settings.yaml; si no existe loguru usa fallback basico."""
+    """Configura Loguru según settings.yaml.
+
+    Reglas:
+    - Siempre limpia handlers previos para evitar duplicación en notebooks.
+    - Mantiene logging a consola.
+    - Permite desactivar logging a archivo.
+    - Usa enqueue=True para reducir conflictos en procesos largos.
+    - Evita fallos duros si Windows/OneDrive bloquean el archivo de log.
+    """
     cfg = logging_config or {}
+
     if not hasattr(logger, "remove") or not hasattr(logger, "add"):
         return
 
-    logger.remove()
+    # 1. Remover handlers previos: crítico en notebooks
+    try:
+        logger.remove()
+    except Exception:
+        pass
+
     level = cfg.get("level", "INFO")
+
     fmt = cfg.get(
         "format",
-        "{time:YYYY-MM-DD HH:mm:ss} | {level: <8} | {name}:{function}:{line} | {message}",
+        "{time:YYYY-MM-DD HH:mm:ss} | {level:<8} | {name}:{function}:{line} | {message}",
     )
-    logger.add(sys.stderr, level=level, format=fmt, colorize=True)
+
+    # 2. Consola siempre activa
+    logger.add(
+        sys.stderr,
+        level=level,
+        format=fmt,
+        colorize=True,
+        enqueue=True,
+        catch=True,
+    )
+
+    # 3. Permitir desactivar archivo desde settings.yaml
+    file_enabled = bool(cfg.get("file_enabled", False))
+
+    if not file_enabled:
+        logger.info("File logging desactivado. Solo consola activa.")
+        return
 
     file_path = cfg.get("file_path")
-    if file_path:
-        log_file = PROJECT_ROOT / file_path if not Path(file_path).is_absolute() else Path(file_path)
+
+    if not file_path:
+        logger.info("No se especificó file_path para logging a archivo.")
+        return
+
+    log_file = (
+        PROJECT_ROOT / file_path
+        if not Path(file_path).is_absolute()
+        else Path(file_path)
+    )
+
+    try:
         log_file.parent.mkdir(parents=True, exist_ok=True)
+
         logger.add(
             log_file,
             level=level,
@@ -154,6 +196,24 @@ def setup_logger(logging_config: Dict[str, Any] | None = None) -> None:
             rotation=cfg.get("rotation", "10 MB"),
             retention=cfg.get("retention", "30 days"),
             encoding="utf-8",
+            enqueue=True,
+            catch=True,
+            backtrace=False,
+            diagnose=False,
+        )
+
+        logger.info(f"File logging activo en: {log_file}")
+
+    except PermissionError as exc:
+        logger.warning(
+            f"No se pudo activar file logging por bloqueo de archivo: {log_file}. "
+            f"Se continúa solo con consola. Error: {exc}"
+        )
+
+    except Exception as exc:
+        logger.warning(
+            f"No se pudo configurar file logging en {log_file}. "
+            f"Se continúa solo con consola. Error: {exc}"
         )
 
 

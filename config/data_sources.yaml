@@ -60,6 +60,7 @@ sources:
           GFDD.OI.06: Concentracion bancaria
           GFDD.DI.08: Depositos (% PIB)
           GFDD.SI.05: Capital regulatorio
+          GFDD.EI.06: retorno sobre el patrimonio (ROE)
 
       # ===== D3 INSTITUCIONAL =====
       d3_institucional:

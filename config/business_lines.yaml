@@ -25,15 +25,16 @@ business_lines:
         weighted_mean_applied_tariff_all_products: 0.07
 
       financial:
-        domestic_credit_private_gdp: 0.22
-        financial_system_deposits_gdp: 0.20
-        account_ownership: 0.12
-        bank_npl_ratio: 0.14
+        domestic_credit_private_gdp: 0.20
+        financial_system_deposits_gdp: 0.18
+        account_ownership: 0.10
+        bank_npl_ratio: 0.13
         bank_capital_rwa: 0.12
-        bank_concentration_5: 0.08
-        interest_rate_spread: 0.08
-        stock_market_cap_gdp: 0.03
-        personal_remittances_gdp: 0.01
+        return_on_equity: 0.12
+        bank_concentration_5: 0.07
+        interest_rate_spread: 0.06
+        stock_market_cap_gdp: 0.015
+        personal_remittances_gdp: 0.005
 
       institutional:
         rule_of_law: 0.23
@@ -65,6 +66,7 @@ business_lines:
         - gdp_nominal
         - gdp_per_capita_ppp
         - interest_rate_spread
+        - return_on_equity
 
       negative_signal:
         - bank_npl_ratio
@@ -102,15 +104,17 @@ business_lines:
 
 
       financial:
-        personal_remittances_gdp: 0.38
+        personal_remittances_gdp: 0.34
         account_ownership: 0.22
-        domestic_credit_private_gdp: 0.07
-        financial_system_deposits_gdp: 0.07
-        bank_npl_ratio: 0.07
-        interest_rate_spread: 0.06
+        financial_system_deposits_gdp: 0.08
+        bank_npl_ratio: 0.08
         bank_capital_rwa: 0.07
-        bank_concentration_5: 0.03
-        stock_market_cap_gdp: 0.03
+        domestic_credit_private_gdp: 0.06
+        interest_rate_spread: 0.05
+        bank_concentration_5: 0.05
+        return_on_equity: 0.03
+        stock_market_cap_gdp: 0.02
+        
 
         # Nota: ATMs y sucursales se tratan como infraestructura/canal,
         # por eso se ponderan en digital_tech, no en financial.
@@ -145,6 +149,7 @@ business_lines:
         - commercial_bank_branches_per_100k_adults
         - current_account_gdp
         - interest_rate_spread
+        - return_on_equity
 
       negative_signal:
         - country_risk_premium
@@ -182,15 +187,16 @@ business_lines:
         weighted_mean_applied_tariff_all_products: 0.04
 
       financial:
-        stock_market_cap_gdp: 0.30
-        bank_capital_rwa: 0.15
+        stock_market_cap_gdp: 0.26
+        bank_capital_rwa: 0.14
+        bank_npl_ratio: 0.13
         domestic_credit_private_gdp: 0.11
-        financial_system_deposits_gdp: 0.09
-        bank_npl_ratio: 0.12
-        account_ownership: 0.05
-        interest_rate_spread: 0.07
+        financial_system_deposits_gdp: 0.10
+        account_ownership: 0.08
+        interest_rate_spread: 0.05
         bank_concentration_5: 0.05
-        personal_remittances_gdp: 0.06
+        return_on_equity: 0.05
+        personal_remittances_gdp: 0.03
 
       institutional:
         regulatory_quality: 0.34
@@ -224,6 +230,7 @@ business_lines:
         - stock_market_cap_gdp
         - bank_capital_rwa
         - interest_rate_spread
+        - return_on_equity
 
       negative_signal:
         - country_risk_premium
@@ -260,16 +267,19 @@ business_lines:
         fdi_net_inflows_gdp: 0.01
         weighted_mean_applied_tariff_all_products: 0.00
 
+
       financial:
-        account_ownership: 0.36
-        domestic_credit_private_gdp: 0.14
-        financial_system_deposits_gdp: 0.12
+        account_ownership: 0.20
+        return_on_equity: 0.14
+        domestic_credit_private_gdp: 0.13
+        financial_system_deposits_gdp: 0.13
         bank_concentration_5: 0.12
         bank_npl_ratio: 0.11
         interest_rate_spread: 0.08
-        bank_capital_rwa: 0.05
-        personal_remittances_gdp: 0.01
+        bank_capital_rwa: 0.06
+        personal_remittances_gdp: 0.02
         stock_market_cap_gdp: 0.01
+
         # Nota metodologica:
         # bank_concentration_5 se conserva como variable financiera relevante,
         # pero debe interpretarse como restriccion competitiva cuando su direccion
@@ -306,6 +316,7 @@ business_lines:
         - gdp_per_capita_ppp
         - secure_internet_servers_per_million
         - interest_rate_spread
+        - return_on_equity
 
       negative_signal:
         - bank_concentration_5
@@ -342,14 +353,15 @@ business_lines:
         # gdp_growth: 0.05
 
       financial:
-        stock_market_cap_gdp: 0.36
-        domestic_credit_private_gdp: 0.16
-        financial_system_deposits_gdp: 0.14
-        bank_capital_rwa: 0.12
+        stock_market_cap_gdp: 0.3
+        domestic_credit_private_gdp: 0.15
+        financial_system_deposits_gdp: 0.13
+        bank_capital_rwa: 0.11
         bank_npl_ratio: 0.08
-        interest_rate_spread: 0.05
-        personal_remittances_gdp: 0.04
-        bank_concentration_5: 0.03
+        return_on_equity: 0.10
+        interest_rate_spread: 0.04
+        bank_concentration_5: 0.04
+        personal_remittances_gdp: 0.03
         account_ownership: 0.02
 
       institutional:
@@ -382,7 +394,8 @@ business_lines:
         - regulatory_quality
         - bank_capital_rwa
         - interest_rate_spread
-
+        - return_on_equity
+        
       negative_signal:
         - inflation_rate
         - country_risk_premium

@@ -145,6 +145,13 @@ dimensions:
         direction: positive
         frequency: annual
         description: Capital regulatorio bancario sobre activos ponderados por riesgo
+      return_on_equity:
+        source: world_bank
+        db: 32
+        indicator_code: GFDD.EI.06
+        direction: positive
+        frequency: annual
+        description: Rentabilidad sobre patrimonio (ROE)
 
   institutional:
     label: Institucional

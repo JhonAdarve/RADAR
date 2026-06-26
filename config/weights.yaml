@@ -36,15 +36,16 @@ variable_weights:
     weighted_mean_applied_tariff_all_products: 0.04
 
   financial:
-    domestic_credit_private_gdp: 0.13
-    account_ownership: 0.13
-    interest_rate_spread: 0.1
-    bank_npl_ratio: 0.1
-    stock_market_cap_gdp: 0.1
-    personal_remittances_gdp: 0.1
-    bank_concentration_5: 0.1
-    financial_system_deposits_gdp: 0.12
-    bank_capital_rwa: 0.12
+    domestic_credit_private_gdp: 0.12
+    account_ownership: 0.10
+    interest_rate_spread: 0.08
+    bank_npl_ratio: 0.11
+    stock_market_cap_gdp: 0.10
+    personal_remittances_gdp: 0.03
+    bank_concentration_5: 0.10
+    financial_system_deposits_gdp: 0.10
+    bank_capital_rwa: 0.10
+    return_on_equity: 0.15
 
   institutional:
     regulatory_quality: 0.13
